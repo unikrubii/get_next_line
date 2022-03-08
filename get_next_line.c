@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:40:24 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/07 17:01:29 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/08 23:35:27 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,34 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-char	*read_file(char *buf, int fbyte)
+char	*read_file(char *buf)
 {
 	static char	*str;
 
-	printf("%d\n", fbyte);
 	str = ft_strjoin(str, buf);
 	return (str);
+}
+
+char	*write_ans(char *word)
+{
+	char	*ans;
+	static int		i;
+
+
+	// printf("%s\n", word);
+	while (word[i] != '\n' && word[i] != '\0')
+		i++;
+	// printf("%d\n", i);
+	ans = (char *)malloc(sizeof(char) * i + 1);
+	ft_strlcpy(ans, word, i);
+	i++;
+	ans[i] = '\0';
+	// if (*word == '\n' || *word == '\0')
+	// {
+	// 	i++;
+	// 	word++;
+	// }
+	return (ans);
 }
 
 char	*get_next_line(int fd)
@@ -35,11 +56,15 @@ char	*get_next_line(int fd)
 	fbyte = read(fd, buf, BUFFER_SIZE);
 	while (fbyte > 0)
 	{
-		// function read file
-		read_file(buf, fbyte);
+		buf[fbyte] = '\0';
+		tmp = read_file(buf);
+		printf("%s\n", tmp);
+		// if (findchr(tmp, '\n'))
+		printf("%s\n", write_ans(tmp));
+		// write_ans(tmp);
+		printf("\n");
 		fbyte = read(fd, buf, BUFFER_SIZE);
 	}
-	
 	return (0);
 }
 

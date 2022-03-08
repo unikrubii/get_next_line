@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:55:30 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/07 17:03:37 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/08 23:10:56 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	findchr(char *s, char c)
 	int i;
 
 	i = 0;
-	while (i < BUFFER_SIZE)
+	while (i < ft_strlen(s))
 	{
 		if (s[i] == c)
 			return (1);
@@ -50,11 +50,29 @@ char	*ft_strjoin(char *s1, char *s2)
 	s3 = (char *)malloc(sizeof(char) * (len + 1));
 	i = 0;
 	j = 0;
-	while (s1[j])
-		s3[i++] = s1[j++];
+	if (s1)
+	{
+		while (s1[j])
+			s3[i++] = s1[j++];
+	}
 	j = 0;
 	while (s2[j])
 		s3[i++] = s2[j++];
 	s3[i] = '\0';
 	return (s3);
+}
+
+void	ft_strlcpy(char *dst, const char *src, int dstsize)
+{
+	int	i;
+
+	if (!dstsize)
+		return ;
+	i = 0;
+	while (src[i] && i < (dstsize - 1))
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
 }

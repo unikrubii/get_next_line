@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:55:30 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/08 23:10:56 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:29:44 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j])
 		s3[i++] = s2[j++];
 	s3[i] = '\0';
+	if (s1)
+		free(s1);
 	return (s3);
 }
 
@@ -75,4 +77,17 @@ void	ft_strlcpy(char *dst, const char *src, int dstsize)
 		i++;
 	}
 	dst[i] = '\0';
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == (unsigned char)c)
+			return ((char *)s);
+		s++;
+	}
+	if ((unsigned char)c == '\0')
+		return ((char *)s);
+	return (0);
 }

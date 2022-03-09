@@ -5,73 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 13:40:24 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/08 23:35:27 by sthitiku         ###   ########.fr       */
+/*   Created: 2022/03/09 15:38:02 by sthitiku          #+#    #+#             */
+/*   Updated: 2022/03/09 20:45:05 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-# include <stdio.h>
-# include <fcntl.h>
-
-char	*read_file(char *buf)
-{
-	static char	*str;
-
-	str = ft_strjoin(str, buf);
-	return (str);
-}
-
-char	*write_ans(char *word)
-{
-	char	*ans;
-	static int		i;
-
-
-	// printf("%s\n", word);
-	while (word[i] != '\n' && word[i] != '\0')
-		i++;
-	// printf("%d\n", i);
-	ans = (char *)malloc(sizeof(char) * i + 1);
-	ft_strlcpy(ans, word, i);
-	i++;
-	ans[i] = '\0';
-	// if (*word == '\n' || *word == '\0')
-	// {
-	// 	i++;
-	// 	word++;
-	// }
-	return (ans);
-}
+#include <stdio.h>
+#include <fcntl.h>
 
 char	*get_next_line(int fd)
 {
 	char	buf[BUFFER_SIZE + 1];
 	char	*tmp;
+	static char 	*str;
 	int		fbyte;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	fbyte = read(fd, buf, BUFFER_SIZE);
+	if (fbyte <= 0)
+		return (NULL);
 	while (fbyte > 0)
 	{
 		buf[fbyte] = '\0';
-		tmp = read_file(buf);
-		printf("%s\n", tmp);
-		// if (findchr(tmp, '\n'))
-		printf("%s\n", write_ans(tmp));
-		// write_ans(tmp);
-		printf("\n");
-		fbyte = read(fd, buf, BUFFER_SIZE);
+		str = ft_strjoin(str, buf);
+		
 	}
-	return (0);
-}
-
-int	main(void)
-{
-	int	fd;
-
-	fd = open("test", O_RDONLY);
-	get_next_line(fd);
 }

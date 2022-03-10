@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:38:24 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/09 20:47:09 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/11 00:32:36 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@
 # define BUFFER_SIZE 5
 #endif
 
-int	ft_strlen(char *s);
-int	findchr(char *s, char c);
-char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlen( char *s);
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
+int		findchr(char *s, char c);
+int		bsn_pos(char *s);
+char	*sp_strjoin(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
-void	ft_strlcpy(char *dst, const char *src, int dstsize);
+char	*get_next_line(int fd);
 
 #endif

@@ -6,15 +6,16 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:55:30 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/09 20:47:08 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/11 00:15:18 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
-int	ft_strlen(char *s)
+size_t	ft_strlen( char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])
@@ -22,54 +23,54 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-int	findchr(char *s, char c)
+
+int	bsn_pos(char *s)
 {
 	int i;
 
 	i = 0;
-	while (i < ft_strlen(s))
+	while (s)
 	{
-		if (s[i] == c)
-			return (1);
+		if (s[i] == '\n')
+			return (i);
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*sp_strjoin(char *s1, char *s2)
 {
-	int		len;
-	int		i;
-	int		j;
+	size_t	len;
+	size_t	ret_len;
+	size_t	i;
 	char	*s3;
 
-	if (!s1)
-		len = ft_strlen(s2);
-	else
-		len = ft_strlen(s1) + ft_strlen(s2);
+	len = ft_strlen(s1) + ft_strlen(s2);
 	s3 = (char *)malloc(sizeof(char) * (len + 1));
-	i = 0;
-	j = 0;
-	if (s1)
+	if (!s3)
 	{
-		while (s1[j])
-			s3[i++] = s1[j++];
-	}
-	j = 0;
-	while (s2[j])
-		s3[i++] = s2[j++];
-	s3[i] = '\0';
-	if (s1)
 		free(s1);
+		return (NULL);
+	}
+	ret_len = ft_strlen(s1);
+	ft_strlcpy(s3, s1, ret_len + 1);
+	i = 0;
+	while (ret_len + i < len && s2[i])
+	{
+		s3[ret_len + i] = s2[i];
+		i++;
+	}
+	s3[ret_len + i] = '\0';
+	free(s1);
 	return (s3);
 }
 
-void	ft_strlcpy(char *dst, const char *src, int dstsize)
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 {
-	int	i;
+	size_t	i;
 
 	if (!dstsize)
-		return ;
+		return (ft_strlen(src));
 	i = 0;
 	while (src[i] && i < (dstsize - 1))
 	{
@@ -77,6 +78,7 @@ void	ft_strlcpy(char *dst, const char *src, int dstsize)
 		i++;
 	}
 	dst[i] = '\0';
+	return (ft_strlen(src));
 }
 
 char	*ft_strchr(const char *s, int c)

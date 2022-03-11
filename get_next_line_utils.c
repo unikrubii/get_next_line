@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:55:30 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/11 00:15:18 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/11 20:09:04 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,18 @@ int	bsn_pos(char *s)
 {
 	int i;
 
+	// printf("%s", s);
 	i = 0;
-	while (s)
+	if (!s)
+		return (0);
+	while (s[i])
 	{
 		if (s[i] == '\n')
-			return (i);
+			break ;
 		i++;
 	}
-	return (-1);
+	// printf("%d", i);
+	return (i);
 }
 
 char	*sp_strjoin(char *s1, char *s2)

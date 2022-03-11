@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:38:02 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/11 00:39:44 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/11 20:37:45 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ char	*read_file(int fd, char *str)
 		ft_strlcpy(tmp, buf, fbyte + 1);
 		str = sp_strjoin(str, tmp);
 		free(tmp);
+		if (ft_strchr(str, '\n'))
+			break ;
 		fbyte = read(fd, buf, BUFFER_SIZE);
 	}
 	return (str);
@@ -49,7 +51,7 @@ char	*shift_str(char *str, int pos)
 {
 	char	*new;
 
-	if (pos < 0)
+	if (!ft_strchr(str, '\n'))
 	{
 		free(str);
 		str = NULL;
@@ -111,7 +113,7 @@ char	*get_next_line(int fd)
 		str[0] = '\0';
 	}
 	str = read_file(fd, str);
-	printf("%s\n", str);
+	// printf("%s\n", str);
 	if (!str)
 		return (NULL);
 	bsn = bsn_pos(str);
@@ -120,15 +122,16 @@ char	*get_next_line(int fd)
 		return (NULL);
 	str = shift_str(str, bsn);
 	// printf("%s\n-----\n%s\n", ret, str);
-	return (0);
+	return (ret);
 }
 
-int	main(void)
-{
-	int	fd;
-	char *ans;
+// int	main(void)
+// {
+// 	int	fd;
+// 	char *ans;
 
-	fd = open("test", O_RDONLY);
-	ans = get_next_line(fd);
-	printf("%s\n", ans);
-}
+// 	fd = open("test", O_RDONLY);
+// 	ans = get_next_line(fd);
+// 	// get_next_line(fd);
+// 	printf("%s", ans);
+// }

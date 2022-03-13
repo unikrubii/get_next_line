@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:40:24 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/09 20:47:07 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/13 16:23:05 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,35 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-char	*read_file(char *buf)
-{
-	static char	*str;
+char	*read_file(int fd, char *str)
+{	
+	char	buf[BUFFER_SIZE];
+	char	*tmp;
 	int		fbyte;
-	
-	str = ft_strjoin(str, buf);
+
+	fbyte = read(fd, buf, BUFFER_SIZE);
+	if (fbyte <= 0)
+	{
+		free(str);
+		str = NULL;
+		return (NULL);
+	}
+	while (fbyte > 0)
+	{
+		tmp = (char *)malloc(sizeof(char) * (fbyte + 1));
+		if (!tmp)
+		{
+			free(str);
+			str = NULL;
+			return (NULL);
+		}
+		ft_strlcpy(tmp, buf, fbyte + 1);
+		str = sp_strjoin(str, tmp);
+		free(tmp);
+		if (ft_strchr(str, '\n'))
+			break ;
+		fbyte = read(fd, buf, BUFFER_SIZE);
+	}
 	return (str);
 }
 

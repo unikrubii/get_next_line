@@ -6,14 +6,14 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:55:30 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/11 20:09:04 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/13 17:16:19 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-size_t	ft_strlen( char *s)
+size_t	ft_strlen(char *s)
 {
 	size_t	i;
 

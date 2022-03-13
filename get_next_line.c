@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:38:02 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/11 20:37:45 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/13 17:14:44 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,18 @@ void	free_ptr(char *str)
 }
 
 char	*read_file(int fd, char *str)
-{	
+{
 	char	buf[BUFFER_SIZE];
 	char	*tmp;
 	int		fbyte;
 
 	fbyte = read(fd, buf, BUFFER_SIZE);
+	if (fbyte <= 0)
+	{
+		free(str);
+		str = NULL;
+		return (NULL);
+	}
 	while (fbyte > 0)
 	{
 		tmp = (char *)malloc(sizeof(char) * (fbyte + 1));
@@ -50,6 +56,7 @@ char	*read_file(int fd, char *str)
 char	*shift_str(char *str, int pos)
 {
 	char	*new;
+	size_t	new_len;
 
 	if (!ft_strchr(str, '\n'))
 	{
@@ -57,14 +64,15 @@ char	*shift_str(char *str, int pos)
 		str = NULL;
 		return (NULL);
 	}
-	new = (char *)malloc(sizeof(char) * (ft_strlen(str) - pos));
+	new_len = ft_strlen(str) - pos;
+	new = (char *)malloc(sizeof(char) * new_len);
 	if (!new)
 	{
 		free(str);
 		str = NULL;
 		return (NULL);
 	}
-	ft_strlcpy(new, &str[pos + 1], ft_strlen(str) - pos);
+	ft_strlcpy(new, &str[pos + 1], new_len);
 	free(str);
 	str = NULL;
 	return (new);
@@ -113,7 +121,6 @@ char	*get_next_line(int fd)
 		str[0] = '\0';
 	}
 	str = read_file(fd, str);
-	// printf("%s\n", str);
 	if (!str)
 		return (NULL);
 	bsn = bsn_pos(str);
@@ -121,17 +128,17 @@ char	*get_next_line(int fd)
 	if (!ret)
 		return (NULL);
 	str = shift_str(str, bsn);
-	// printf("%s\n-----\n%s\n", ret, str);
 	return (ret);
 }
 
-// int	main(void)
-// {
-// 	int	fd;
-// 	char *ans;
+int	main(void)
+{
+	int	fd;
+	char *ans;
 
-// 	fd = open("test", O_RDONLY);
-// 	ans = get_next_line(fd);
-// 	// get_next_line(fd);
-// 	printf("%s", ans);
-// }
+	fd = open("test", O_RDONLY);
+	ans = get_next_line(fd);
+	get_next_line(fd);
+	printf("the answer is = %s", ans);
+	free(ans);
+}

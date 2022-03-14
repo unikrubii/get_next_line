@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:38:02 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/14 16:28:28 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:35:10 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,9 @@ char	*read_file(int fd, char *str)
 	char	buf[BUFFER_SIZE];
 	int		fbyte;
 
-	// printf("%s\n===============\n", str);
 	fbyte = read(fd, buf, BUFFER_SIZE);
-	// printf("%d\n=============\n", fbyte);
 	if (fbyte <= 0)
 	{
-		// printf("%s\n------------\n", buf);
 		if (str[0] != '\0')
 			return (str);
 		free(str);
@@ -47,7 +44,6 @@ char	*shift_str(char *str, int pos)
 	char	*new;
 	size_t	new_len;
 
-	// printf("%s\n---------------\n", str);
 	if (!ft_strchr(str, '\n'))
 	{
 		free(str);
@@ -113,7 +109,6 @@ char	*get_next_line(int fd)
 	str = read_file(fd, str);
 	if (!str)
 		return (NULL);
-	// if (ft_strchr(str, '\n'))
 	bsn = bsn_pos(str);
 	ret = get_ans(str, bsn);
 	if (!ret)

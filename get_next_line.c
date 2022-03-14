@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:38:02 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/13 17:14:44 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/14 14:36:00 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char	*get_next_line(int fd)
 	str = shift_str(str, bsn);
 	return (ret);
 }
-
+/*
 int	main(void)
 {
 	int	fd;
@@ -141,4 +141,4 @@ int	main(void)
 	get_next_line(fd);
 	printf("the answer is = %s", ans);
 	free(ans);
-}
+}*/

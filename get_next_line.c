@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:38:02 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/14 14:36:00 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:28:28 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,26 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-void	free_ptr(char *str)
-{
-	free(str);
-	str = NULL;
-}
-
 char	*read_file(int fd, char *str)
 {
 	char	buf[BUFFER_SIZE];
-	char	*tmp;
 	int		fbyte;
 
+	// printf("%s\n===============\n", str);
 	fbyte = read(fd, buf, BUFFER_SIZE);
+	// printf("%d\n=============\n", fbyte);
 	if (fbyte <= 0)
 	{
+		// printf("%s\n------------\n", buf);
+		if (str[0] != '\0')
+			return (str);
 		free(str);
 		str = NULL;
 		return (NULL);
 	}
 	while (fbyte > 0)
 	{
-		tmp = (char *)malloc(sizeof(char) * (fbyte + 1));
-		if (!tmp)
-		{
-			free(str);
-			str = NULL;
-			return (NULL);
-		}
-		ft_strlcpy(tmp, buf, fbyte + 1);
-		str = sp_strjoin(str, tmp);
-		free(tmp);
+		str = sp_strjoin(str, buf, fbyte);
 		if (ft_strchr(str, '\n'))
 			break ;
 		fbyte = read(fd, buf, BUFFER_SIZE);
@@ -58,6 +47,7 @@ char	*shift_str(char *str, int pos)
 	char	*new;
 	size_t	new_len;
 
+	// printf("%s\n---------------\n", str);
 	if (!ft_strchr(str, '\n'))
 	{
 		free(str);
@@ -123,6 +113,7 @@ char	*get_next_line(int fd)
 	str = read_file(fd, str);
 	if (!str)
 		return (NULL);
+	// if (ft_strchr(str, '\n'))
 	bsn = bsn_pos(str);
 	ret = get_ans(str, bsn);
 	if (!ret)
@@ -130,15 +121,23 @@ char	*get_next_line(int fd)
 	str = shift_str(str, bsn);
 	return (ret);
 }
-/*
-int	main(void)
-{
-	int	fd;
-	char *ans;
 
-	fd = open("test", O_RDONLY);
-	ans = get_next_line(fd);
-	get_next_line(fd);
-	printf("the answer is = %s", ans);
-	free(ans);
-}*/
+// int	main(void)
+// {
+// 	int	fd;
+// 	char *ans;
+
+// 	fd = open("41_with_nl", O_RDONLY);
+// 	// get_next_line(fd);
+// 	// get_next_line(fd);
+// 	// get_next_line(fd);
+// 	ans = get_next_line(fd);
+// 	printf("%s", ans);
+// 	free(ans);
+// 	ans = get_next_line(fd);
+// 	printf("%s", ans);
+// 	free(ans);
+// 	ans = get_next_line(fd);
+// 	printf("%s", ans);
+// 	free(ans);
+// }

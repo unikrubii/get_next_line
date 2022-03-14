@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:55:30 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/13 17:16:19 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/14 15:12:52 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	bsn_pos(char *s)
 {
 	int i;
 
-	// printf("%s", s);
 	i = 0;
 	if (!s)
 		return (0);
@@ -38,18 +37,17 @@ int	bsn_pos(char *s)
 			break ;
 		i++;
 	}
-	// printf("%d", i);
 	return (i);
 }
 
-char	*sp_strjoin(char *s1, char *s2)
+char	*sp_strjoin(char *s1, char *s2, size_t fbyte)
 {
 	size_t	len;
 	size_t	ret_len;
 	size_t	i;
 	char	*s3;
 
-	len = ft_strlen(s1) + ft_strlen(s2);
+	len = ft_strlen(s1) + fbyte;
 	s3 = (char *)malloc(sizeof(char) * (len + 1));
 	if (!s3)
 	{
@@ -59,7 +57,7 @@ char	*sp_strjoin(char *s1, char *s2)
 	ret_len = ft_strlen(s1);
 	ft_strlcpy(s3, s1, ret_len + 1);
 	i = 0;
-	while (ret_len + i < len && s2[i])
+	while (ret_len + i < len)
 	{
 		s3[ret_len + i] = s2[i];
 		i++;

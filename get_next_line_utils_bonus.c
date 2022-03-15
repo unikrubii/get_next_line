@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/15 14:04:04 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/16 03:51:58 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	bsn_pos(char *s)
 	while (s[i])
 	{
 		if (s[i] == '\n')
-			break ;
+			return (i);
 		i++;
 	}
-	return (i);
+	return (-1);
 }
 
 char	*sp_strjoin(char *s1, char *s2, size_t fbyte)
@@ -73,24 +73,14 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 	if (!dstsize)
 		return (ft_strlen(src));
 	i = 0;
+	printf("src = %s\n", src);
 	while (src[i] && i < (dstsize - 1))
 	{
 		dst[i] = src[i];
+		// printf("i = %zu\tdst = %c\tsrc = %c\n",i ,dst[i], src[i]);
 		i++;
 	}
 	dst[i] = '\0';
+	printf("dst = %s\n", dst);
 	return (ft_strlen(src));
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s)
-	{
-		if (*s == (unsigned char)c)
-			return ((char *)s);
-		s++;
-	}
-	if ((unsigned char)c == '\0')
-		return ((char *)s);
-	return (0);
 }

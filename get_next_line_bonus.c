@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/16 04:00:21 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/16 09:59:48 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,32 @@
 char	*read_file(int fd, char *str)
 {
 	char	buf[BUFFER_SIZE];
+	char	*tmp;
+	char	*ret;
 	int		fbyte;
 
 	fbyte = read(fd, buf, BUFFER_SIZE);
-	// buf[fbyte] = '\0';
 	if (fbyte <= 0)
 	{
-		if (str[0] != '\0')
-			return (str);
+		// if (str[0] != '\0')
+		// 	return (str);
 		free(str);
 		str = NULL;
 		return (NULL);
 	}
 	while (fbyte > 0)
 	{
-		ft_strlcpy(&str[ft_strlen(str)], buf, fbyte + 1);
-		printf("str = %s\n", str);
+		tmp = (char *)malloc(sizeof(char) * (fbyte + 1));
+		ft_strlcpy(tmp, buf, fbyte + 1);
+		ret = (char *)malloc((ft_strlen(str) + ft_strlen(tmp) + 1));
+		ft_strlcpy(&ret[ft_strlen(str)], tmp, fbyte + 1);
+		free(tmp);
+		free(str);
 		if (bsn_pos(str) >= 0)
 			break ;
 		fbyte = read(fd, buf, BUFFER_SIZE);
-		// buf[fbyte] = '\0';
 	}
-	return (str);
+	return (ret);
 }
 
 char	*shift_str(char *str, int pos)
@@ -92,7 +96,13 @@ char	*get_ans(char *str, int pos)
 		return (NULL);
 	}
 	// printf("%s\n", str);
+	// ans[0] = '\0';
+	// printf("src before copy = %s\n", str);
+	// printf("dst before copy = %s\n", ans);
 	ft_strlcpy(ans, str, pos + 2);
+	// ans = 
+	// ft_memmove(ans, str, pos + 2);
+	// printf("ans = %s\n", ans);
 	return (ans);
 }
 
@@ -115,19 +125,21 @@ char	*get_next_line(int fd)
 	if (!str)
 		return (NULL);
 	bsn = bsn_pos(str);
-	printf("%d\n", bsn);
+	// printf("%d\n", bsn);
 	ret = get_ans(str, bsn);
 	if (!ret)
 		return (NULL);
+	printf("before shift = %s\n", str);
 	str = shift_str(str, bsn);
+	printf("after shift = %s\n", str);
 	return (ret);
 }
 
 int	main(int argc, char **argv)
 {
 	int	fd;
-	int	i;
 	char *ans;
+	int	i;
 
 	i = 1;
 	if (argc > 1)
@@ -135,18 +147,6 @@ int	main(int argc, char **argv)
 		while (i < argc)
 		{
 			fd = open(argv[i], O_RDONLY);
-	// get_next_line(fd);
-	// get_next_line(fd);
-	// get_next_line(fd);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
 			ans = get_next_line(fd);
 			while (ans)// && j < 4)
 			{
@@ -156,5 +156,17 @@ int	main(int argc, char **argv)
 			i++;
 			close(fd);
 		}
-	}	
+	}
+	// get_next_line(fd);
+	// get_next_line(fd);
+	// get_next_line(fd);
+	// ans = get_next_line(fd);
+	// printf("%s", ans);
+	// free(ans);
+	// ans = get_next_line(fd);
+	// printf("%s", ans);
+	// free(ans);
+	// ans = get_next_line(fd);
+	// printf("%s", ans);
+	// free(ans);
 }

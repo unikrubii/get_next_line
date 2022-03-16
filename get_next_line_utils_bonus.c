@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/16 03:51:58 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/16 09:34:13 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,42 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 	if (!dstsize)
 		return (ft_strlen(src));
 	i = 0;
-	printf("src = %s\n", src);
+	// printf("src = %s\n", src);
+	// printf("dst before = %s\n", dst);
 	while (src[i] && i < (dstsize - 1))
 	{
 		dst[i] = src[i];
 		// printf("i = %zu\tdst = %c\tsrc = %c\n",i ,dst[i], src[i]);
+		// printf("src = %p\tdst = %p\n", &src[i], &dst[i]);
 		i++;
 	}
 	dst[i] = '\0';
-	printf("dst = %s\n", dst);
+	// printf("dst = %s\n", dst);
 	return (ft_strlen(src));
+}
+
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	size_t	i;
+
+	if (dst == src || !len)
+		return (dst);
+	i = 0;
+	if (dst < src)
+	{
+		while (i < len)
+		{
+			*((char *)dst + i) = *((char *)src + i);
+			i++;
+		}
+	}
+	else
+	{
+		while (len > 0)
+		{
+			*((char *)dst + len - 1) = *((char *)src + len - 1);
+			len--;
+		}
+	}
+	return (dst);
 }

@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:10 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/16 09:34:41 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/18 04:21:35 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ int		bsn_pos(char *s);
 char	*sp_strjoin(char *s1, char *s2, size_t fbyte);
 // char	*ft_strchr(const char *s, int c);
 char	*get_next_line(int fd);
-void	*ft_memmove(void *dst, const void *src, size_t len);
 
 #endif

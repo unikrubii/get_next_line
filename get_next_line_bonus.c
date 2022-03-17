@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/16 15:10:10 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/16 21:02:40 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ char	*get_next_line(int fd)
 	if (!ret)
 		return (NULL);
 	str = shift_str(str, bsn);
-	printf("result before return = %s\n", ret);
+	// printf("result before return = %s\n", ret);
 	return (ret);
 }
 

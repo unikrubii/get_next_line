@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/18 04:25:16 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/18 18:12:33 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 char	*read_file(int fd, char *str)
 {
 	char	buf[BUFFER_SIZE];
-	char	*tmp;
-	char	*ret;
 	int		fbyte;
 
 	fbyte = read(fd, buf, BUFFER_SIZE);
@@ -28,29 +26,17 @@ char	*read_file(int fd, char *str)
 		if (str[0] != '\0')
 			return (str);
 		free(str);
-		// str = NULL;
+		str = NULL;
 		return (NULL);
 	}
-	// tmp << buff
-	// until \n ---> str << tmp
-	// return str
 	while (fbyte > 0)
 	{
-		tmp = (char *)malloc(sizeof(char) * (fbyte + 1));
-		ft_strlcpy(tmp, buf, fbyte + 1);
-		printf("tmp after read = %s\n", tmp);
-		ret = (char *)malloc((ft_strlen(str) + ft_strlen(tmp) + 1));
-		ft_strlcpy(&ret[ft_strlen(str)], str, ft_strlen(str) + 1);
-		ft_strlcpy(&ret[ft_strlen(ret)], tmp, fbyte + 1);
-		printf("ret after strlcpy = %s\n", ret);
-		free(tmp);
-		if (!str)
-			free(str);
-		if (bsn_pos(ret) >= 0)
+		str = sp_strjoin(str, buf, fbyte);
+		if (ft_strchr(str, '\n'))
 			break ;
 		fbyte = read(fd, buf, BUFFER_SIZE);
 	}
-	return (ret);
+	return (str);
 }
 
 char	*shift_str(char *str, int pos)
@@ -58,10 +44,10 @@ char	*shift_str(char *str, int pos)
 	char	*new;
 	size_t	new_len;
 
-	if (bsn_pos(str) < 0)
+	if (!ft_strchr(str, '\n'))
 	{
 		free(str);
-		// str = NULL;
+		str = NULL;
 		return (NULL);
 	}
 	new_len = ft_strlen(str) - pos;
@@ -69,11 +55,10 @@ char	*shift_str(char *str, int pos)
 	if (!new)
 	{
 		free(str);
-		// str = NULL;
+		str = NULL;
 		return (NULL);
 	}
 	ft_strlcpy(new, &str[pos + 1], new_len);
-	// printf("new in shift_str = %s\n", new);
 	free(str);
 	str = NULL;
 	return (new);
@@ -89,7 +74,7 @@ char	*get_ans(char *str, int pos)
 		if (!ans)
 		{
 			free(str);
-			// str = NULL;
+			str = NULL;
 			return (NULL);
 		}
 		ft_strlcpy(ans, str, ft_strlen(str) + 1);
@@ -99,7 +84,7 @@ char	*get_ans(char *str, int pos)
 	if (!ans)
 	{
 		free(str);
-		// str = NULL;
+		str = NULL;
 		return (NULL);
 	}
 	ft_strlcpy(ans, str, pos + 2);
@@ -122,17 +107,13 @@ char	*get_next_line(int fd)
 		str[0] = '\0';
 	}
 	str = read_file(fd, str);
-	printf("str after read file = %s\n", str);
 	if (!str)
 		return (NULL);
 	bsn = bsn_pos(str);
-	// printf("bsn = %d\n", bsn);
 	ret = get_ans(str, bsn);
 	if (!ret)
 		return (NULL);
 	str = shift_str(str, bsn);
-	// printf("result before return = %s\n", ret);
-	// printf("str after shift = %s\n", str);
 	return (ret);
 }
 
@@ -140,41 +121,41 @@ int	main(int argc, char **argv)
 {
 	int	fd;
 	char *ans;
-	int	i;
+	// int	i;
 
-	i = 1;
-	if (argc > 1)
-	{
-		while (i < argc)
-		{
-			fd = open(argv[i], O_RDONLY);
-			ans = get_next_line(fd);
-			while (ans)// && j < 4)
-			{
-				printf("%s", ans);
-				ans = get_next_line(fd);
-			}
-			i++;
-			close(fd);
-		}
-	}
+	// i = 1;
+	// if (argc > 1)
+	// {
+	// 	while (i < argc)
+	// 	{
+	// 		fd = open(argv[i], O_RDONLY);
+	// 		ans = get_next_line(fd);
+	// 		while (ans)// && j < 4)
+	// 		{
+	// 			printf("%s", ans);
+	// 			ans = get_next_line(fd);
+	// 		}
+	// 		i++;
+	// 		close(fd);
+	// 	}
+	// }
 	// get_next_line(fd);
 	// get_next_line(fd);
 	// get_next_line(fd);
-	// fd = open("multiple_line_with_nl", O_RDONLY);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
+	fd = open("multiple_line_with_nl", O_RDONLY);
+	ans = get_next_line(fd);
+	printf("%s", ans);
+	free(ans);
+	ans = get_next_line(fd);
+	printf("%s", ans);
+	free(ans);
+	ans = get_next_line(fd);
+	printf("%s", ans);
+	free(ans);
+	ans = get_next_line(fd);
+	printf("%s", ans);
+	free(ans);
+	ans = get_next_line(fd);
+	printf("%s", ans);
+	free(ans);
 }

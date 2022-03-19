@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/18 18:12:33 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/19 18:03:46 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 char	*read_file(int fd, char *str)
 {
 	char	buf[BUFFER_SIZE];
+	char	*tmp;
 	int		fbyte;
 
 	fbyte = read(fd, buf, BUFFER_SIZE);
@@ -26,17 +27,20 @@ char	*read_file(int fd, char *str)
 		if (str[0] != '\0')
 			return (str);
 		free(str);
-		str = NULL;
 		return (NULL);
 	}
 	while (fbyte > 0)
 	{
-		str = sp_strjoin(str, buf, fbyte);
-		if (ft_strchr(str, '\n'))
+		tmp = (char *)malloc(ft_strlen(str) + BUFFER_SIZE + 1);
+		ft_strlcpy(tmp, str, ft_strlen(str) + 1);
+		ft_strlcpy(&tmp[ft_strlen(str)], buf, BUFFER_SIZE + 1);
+		if (bsn_pos(str) != -1)
 			break ;
+		free(str);
+		str = tmp;
 		fbyte = read(fd, buf, BUFFER_SIZE);
 	}
-	return (str);
+	return (tmp);
 }
 
 char	*shift_str(char *str, int pos)
@@ -44,7 +48,7 @@ char	*shift_str(char *str, int pos)
 	char	*new;
 	size_t	new_len;
 
-	if (!ft_strchr(str, '\n'))
+	if (bsn_pos(str) == -1)
 	{
 		free(str);
 		str = NULL;
@@ -139,10 +143,15 @@ int	main(int argc, char **argv)
 	// 		close(fd);
 	// 	}
 	// }
-	// get_next_line(fd);
-	// get_next_line(fd);
-	// get_next_line(fd);
 	fd = open("multiple_line_with_nl", O_RDONLY);
+	// get_next_line(fd);
+	// get_next_line(fd);
+	// get_next_line(fd);
+	// get_next_line(fd);
+	// get_next_line(fd);
+	ans = get_next_line(fd);
+	printf("%s", ans);
+	free(ans);
 	ans = get_next_line(fd);
 	printf("%s", ans);
 	free(ans);

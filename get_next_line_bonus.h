@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:10 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/18 04:21:35 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/19 18:04:05 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ size_t	ft_strlen(char *s);
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
 int		findchr(char *s, char c);
 int		bsn_pos(char *s);
-char	*sp_strjoin(char *s1, char *s2, size_t fbyte);
 // char	*ft_strchr(const char *s, int c);
 char	*get_next_line(int fd);
 

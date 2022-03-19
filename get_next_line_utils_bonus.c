@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/18 04:21:55 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/19 18:04:09 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,6 @@ int	bsn_pos(char *s)
 		i++;
 	}
 	return (-1);
-}
-
-char	*sp_strjoin(char *s1, char *s2, size_t fbyte)
-{
-	size_t	len;
-	size_t	ret_len;
-	size_t	i;
-	char	*s3;
-
-	len = ft_strlen(s1) + fbyte;
-	s3 = (char *)malloc(sizeof(char) * (len + 1));
-	if (!s3)
-	{
-		free(s1);
-		return (NULL);
-	}
-	ret_len = ft_strlen(s1);
-	ft_strlcpy(s3, s1, ret_len + 1);
-	i = 0;
-	while (ret_len + i < len)
-	{
-		s3[ret_len + i] = s2[i];
-		i++;
-	}
-	s3[ret_len + i] = '\0';
-	free(s1);
-	return (s3);
 }
 
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)

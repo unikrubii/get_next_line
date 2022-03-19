@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/19 18:03:46 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/20 02:23:55 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 
 #include <stdio.h>
 #include <fcntl.h>
+
+int	bsn_pos(char *s)
+{
+	int i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+	{
+		if (s[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
 
 char	*read_file(int fd, char *str)
 {
@@ -34,10 +50,9 @@ char	*read_file(int fd, char *str)
 		tmp = (char *)malloc(ft_strlen(str) + BUFFER_SIZE + 1);
 		ft_strlcpy(tmp, str, ft_strlen(str) + 1);
 		ft_strlcpy(&tmp[ft_strlen(str)], buf, BUFFER_SIZE + 1);
-		if (bsn_pos(str) != -1)
-			break ;
 		free(str);
-		str = tmp;
+		if (bsn_pos(tmp) != -1)
+			break ;
 		fbyte = read(fd, buf, BUFFER_SIZE);
 	}
 	return (tmp);
@@ -125,46 +140,46 @@ int	main(int argc, char **argv)
 {
 	int	fd;
 	char *ans;
-	// int	i;
+	int	i;
 
-	// i = 1;
-	// if (argc > 1)
-	// {
-	// 	while (i < argc)
-	// 	{
-	// 		fd = open(argv[i], O_RDONLY);
-	// 		ans = get_next_line(fd);
-	// 		while (ans)// && j < 4)
-	// 		{
-	// 			printf("%s", ans);
-	// 			ans = get_next_line(fd);
-	// 		}
-	// 		i++;
-	// 		close(fd);
-	// 	}
-	// }
-	fd = open("multiple_line_with_nl", O_RDONLY);
-	// get_next_line(fd);
-	// get_next_line(fd);
-	// get_next_line(fd);
-	// get_next_line(fd);
-	// get_next_line(fd);
-	ans = get_next_line(fd);
-	printf("%s", ans);
-	free(ans);
-	ans = get_next_line(fd);
-	printf("%s", ans);
-	free(ans);
-	ans = get_next_line(fd);
-	printf("%s", ans);
-	free(ans);
-	ans = get_next_line(fd);
-	printf("%s", ans);
-	free(ans);
-	ans = get_next_line(fd);
-	printf("%s", ans);
-	free(ans);
-	ans = get_next_line(fd);
-	printf("%s", ans);
-	free(ans);
+	i = 1;
+	if (argc > 1)
+	{
+		while (i < argc)
+		{
+			fd = open(argv[i], O_RDONLY);
+			ans = get_next_line(fd);
+			while (ans)// && j < 4)
+			{
+				printf("%s", ans);
+				ans = get_next_line(fd);
+			}
+			i++;
+			close(fd);
+		}
+	}
+	// fd = open("multiple_line_with_nl", O_RDONLY);
+	// // get_next_line(fd);
+	// // get_next_line(fd);
+	// // get_next_line(fd);
+	// // get_next_line(fd);
+	// // get_next_line(fd);
+	// ans = get_next_line(fd);
+	// printf("%s", ans);
+	// free(ans);
+	// ans = get_next_line(fd);
+	// printf("%s", ans);
+	// free(ans);
+	// ans = get_next_line(fd);
+	// printf("%s", ans);
+	// free(ans);
+	// ans = get_next_line(fd);
+	// printf("%s", ans);
+	// free(ans);
+	// ans = get_next_line(fd);
+	// printf("%s", ans);
+	// free(ans);
+	// ans = get_next_line(fd);
+	// printf("%s", ans);
+	// free(ans);
 }

@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:55:30 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/15 12:21:20 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/20 02:33:37 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	ft_strlen(char *s)
 
 int	bsn_pos(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!s)

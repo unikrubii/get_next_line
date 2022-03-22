@@ -6,21 +6,21 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 13:38:24 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/14 21:45:12 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/20 02:35:55 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
+
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <stdlib.h>
-
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 5
-#endif
 
 size_t	ft_strlen(char *s);
 size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);

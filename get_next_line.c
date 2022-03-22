@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 15:38:02 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/20 02:33:17 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/16 23:55:27 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*get_ans(char *str, int pos)
 
 char	*get_next_line(int fd)
 {
-	static char		*str = NULL;
+	static char 	*str = NULL;
 	int				bsn;
 	char			*ret;
 

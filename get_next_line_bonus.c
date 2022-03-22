@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/20 02:23:55 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/22 21:31:59 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	*read_file(int fd, char *str)
 		free(str);
 		if (bsn_pos(tmp) != -1)
 			break ;
+		str = tmp;
 		fbyte = read(fd, buf, BUFFER_SIZE);
 	}
 	return (tmp);

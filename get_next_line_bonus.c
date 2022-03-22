@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/20 02:42:33 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/20 02:23:55 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*get_ans(char *str, int pos)
 
 char	*get_next_line(int fd)
 {
-	static t_read 	*str;
+	static char 	*str = NULL;
 	int				bsn;
 	char			*ret;
 
@@ -120,9 +120,11 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (!str)
 	{
-		str = init_st(str, fd);
+		str = (char *)malloc(sizeof(char));
+		if (!str)
+			return (NULL);
+		str[0] = '\0';
 	}
-	// check_fd()
 	str = read_file(fd, str);
 	if (!str)
 		return (NULL);

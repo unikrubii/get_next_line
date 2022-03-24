@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/22 21:32:41 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/23 16:01:34 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 	return (ft_strlen(src));
 }
 
-// t_read	init_read(t_read *read, int fd)
-// {
-// 	if (!read) 
-// 	{
-// 		read = (t_read *)malloc(sizeof(t_read));
-// 		read->fd = NULL;
-// 		read->str = NULL;
-// 		read->next = NULL;
-// 	}
-// }
+t_read	*init_read(t_read *read, int fd)
+{
+	read = (t_read *)malloc(sizeof(t_read));
+	read->fd = fd;
+	read->str = (char *)malloc(sizeof(char));
+	read->str[0] = '\0';
+	read->next = NULL;
+	return (read);
+}
+
 // void	ft_lstadd_back(t_read **lst, t_read *new)
 // {
 // 	t_read	*temp;

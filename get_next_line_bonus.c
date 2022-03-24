@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/22 21:31:59 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/23 17:37:36 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ char	*read_file(int fd, char *str)
 	}
 	while (fbyte > 0)
 	{
-		tmp = (char *)malloc(ft_strlen(str) + BUFFER_SIZE + 1);
+		tmp = (char *)malloc(ft_strlen(str) + fbyte + 1);
 		ft_strlcpy(tmp, str, ft_strlen(str) + 1);
-		ft_strlcpy(&tmp[ft_strlen(str)], buf, BUFFER_SIZE + 1);
+		ft_strlcpy(&tmp[ft_strlen(str)], buf, fbyte + 1);
 		free(str);
 		if (bsn_pos(tmp) != -1)
 			break ;
@@ -91,10 +91,10 @@ char	*get_ans(char *str, int pos)
 	if (pos < 0)
 	{
 		ans = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
+		printf("%s -> %zu byte\n", str, ft_strlen(str));
 		if (!ans)
 		{
 			free(str);
-			str = NULL;
 			return (NULL);
 		}
 		ft_strlcpy(ans, str, ft_strlen(str) + 1);
@@ -104,7 +104,6 @@ char	*get_ans(char *str, int pos)
 	if (!ans)
 	{
 		free(str);
-		str = NULL;
 		return (NULL);
 	}
 	ft_strlcpy(ans, str, pos + 2);
@@ -113,64 +112,70 @@ char	*get_ans(char *str, int pos)
 
 char	*get_next_line(int fd)
 {
-	static char 	*str = NULL;
+	static t_read 	*read;
 	int				bsn;
 	char			*ret;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!str)
+	if (!read)
 	{
-		str = (char *)malloc(sizeof(char));
-		if (!str)
+		read = (t_read *)malloc(sizeof(t_read));
+		if (!read)
 			return (NULL);
-		str[0] = '\0';
+		read = init_read(read, fd);
 	}
-	str = read_file(fd, str);
-	if (!str)
+	read->str = read_file(fd, read->str);
+	if (!read->str)
 		return (NULL);
-	bsn = bsn_pos(str);
-	ret = get_ans(str, bsn);
+	bsn = bsn_pos(read->str);
+	ret = get_ans(read->str, bsn);
 	if (!ret)
 		return (NULL);
-	str = shift_str(str, bsn);
+	read->str = shift_str(read->str, bsn);
 	return (ret);
 }
 
-int	main(int argc, char **argv)
+// int	main(int argc, char **argv)
+// {
+// 	int	fd;
+// 	char *ans;
+// 	int	i;
+
+// 	i = 1;
+// 	if (argc > 1)
+// 	{
+// 		while (i < argc)
+// 		{
+// 			fd = open(argv[i], O_RDONLY);
+// 			ans = get_next_line(fd);
+// 			while (ans)// && j < 4)
+// 			{
+// 				printf("answer = %s", ans);
+// 				ans = get_next_line(fd);
+// 			}
+// 			i++;
+// 			close(fd);
+// 		}
+// 	}
+// }val
+
+int	main(void)
 {
 	int	fd;
 	char *ans;
-	int	i;
-
-	i = 1;
-	if (argc > 1)
-	{
-		while (i < argc)
-		{
-			fd = open(argv[i], O_RDONLY);
-			ans = get_next_line(fd);
-			while (ans)// && j < 4)
-			{
-				printf("%s", ans);
-				ans = get_next_line(fd);
-			}
-			i++;
-			close(fd);
-		}
-	}
-	// fd = open("multiple_line_with_nl", O_RDONLY);
+	fd = open("43_with_nl", O_RDONLY);
 	// // get_next_line(fd);
 	// // get_next_line(fd);
 	// // get_next_line(fd);
 	// // get_next_line(fd);
 	// // get_next_line(fd);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
+	ans = get_next_line(fd);
+	printf("%s", ans);
+	free(ans);
+	ans = get_next_line(fd);
+	printf("%s", ans);
+	free(ans);
 	// ans = get_next_line(fd);
 	// printf("%s", ans);
 	// free(ans);

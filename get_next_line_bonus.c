@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/23 17:37:36 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/24 18:04:18 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*get_ans(char *str, int pos)
 	if (pos < 0)
 	{
 		ans = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
-		printf("%s -> %zu byte\n", str, ft_strlen(str));
+		// printf("%s -> %zu byte\n", str, ft_strlen(str));
 		if (!ans)
 		{
 			free(str);

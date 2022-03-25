@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/24 18:04:18 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/25 18:15:52 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,11 @@ char	*read_file(int fd, char *str)
 	return (tmp);
 }
 
-char	*shift_str(char *str, int pos)
+char	*shift_str(char *str)
 {
 	char	*new;
 	size_t	new_len;
+	int		pos;
 
 	if (bsn_pos(str) == -1)
 	{
@@ -70,6 +71,7 @@ char	*shift_str(char *str, int pos)
 		str = NULL;
 		return (NULL);
 	}
+	pos = bsn_pos(str);
 	new_len = ft_strlen(str) - pos;
 	new = (char *)malloc(sizeof(char) * new_len);
 	if (!new)
@@ -84,14 +86,14 @@ char	*shift_str(char *str, int pos)
 	return (new);
 }
 
-char	*get_ans(char *str, int pos)
+char	*get_ans(char *str)
 {
 	char	*ans;
+	int		pos;
 
 	if (pos < 0)
 	{
 		ans = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
-		// printf("%s -> %zu byte\n", str, ft_strlen(str));
 		if (!ans)
 		{
 			free(str);
@@ -100,6 +102,8 @@ char	*get_ans(char *str, int pos)
 		ft_strlcpy(ans, str, ft_strlen(str) + 1);
 		return (ans);
 	}
+
+	pos = bsn_pos(str);
 	ans = (char *)malloc(sizeof(char) * (pos + 2));
 	if (!ans)
 	{
@@ -113,6 +117,7 @@ char	*get_ans(char *str, int pos)
 char	*get_next_line(int fd)
 {
 	static t_read 	*read;
+	t_read			*curr;
 	int				bsn;
 	char			*ret;
 
@@ -120,19 +125,23 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (!read)
 	{
-		read = (t_read *)malloc(sizeof(t_read));
+		read = init_read(fd);
 		if (!read)
 			return (NULL);
-		read = init_read(read, fd);
 	}
+	read = check_fd(read, fd);
+	printf("before read file = %s\n", read->str);
 	read->str = read_file(fd, read->str);
+	printf("read file = %s\n", read->str);
 	if (!read->str)
 		return (NULL);
-	bsn = bsn_pos(read->str);
-	ret = get_ans(read->str, bsn);
+	ret = get_ans(read->str);
 	if (!ret)
 		return (NULL);
-	read->str = shift_str(read->str, bsn);
+	// curr = read;
+	read->str = shift_str(read->str);
+	printf("read->str = %s\n", read->str);
+	// clear_read(curr, fd);
 	return (ret);
 }
 

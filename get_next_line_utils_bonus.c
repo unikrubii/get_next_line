@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/23 16:01:34 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/25 18:12:51 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,65 @@ size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 	return (ft_strlen(src));
 }
 
-t_read	*init_read(t_read *read, int fd)
+t_read	*init_read(int fd)
 {
-	read = (t_read *)malloc(sizeof(t_read));
-	read->fd = fd;
-	read->str = (char *)malloc(sizeof(char));
-	read->str[0] = '\0';
-	read->next = NULL;
-	return (read);
+	t_read	*new;
+
+	new = (t_read *)malloc(sizeof(t_read));
+	if (!new)
+		return (NULL);
+	new->fd = fd;
+	new->str = (char *)malloc(sizeof(char));
+	new->str[0] = '\0';
+	new->next = NULL;
+	return (new);
 }
 
+t_read	*check_fd(t_read *read, int fd)
+{
+	t_read	*curr;
+	t_read	*ret;
+
+	curr = read;
+	while (curr->next)
+	{
+		if (curr->fd == fd)
+			return (curr);
+		curr = curr->next;
+	}
+	ret = init_read(fd);
+	if (!ret)
+		return (NULL);
+	curr->next = ret;
+	return (ret);
+}
+
+void	clear_read(t_read *read, int fd)
+{
+	t_read	*before;
+	t_read	*after;
+	t_read	*curr;
+
+	// printf("read->str = %s\n", read->str);
+	curr = read;
+	while (curr->next)
+	{
+		if (curr->next->fd == fd)
+		{
+			before = curr;
+			after = curr->next->next;
+			if (curr->next->str == NULL)
+			{
+				curr->next->fd = 0;
+				curr->next->next = NULL;
+				free(curr->next);
+				return ;
+			}
+			before->next = after;
+			curr = curr->next;
+		}
+	}
+}
 // void	ft_lstadd_back(t_read **lst, t_read *new)
 // {
 // 	t_read	*temp;

@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/25 18:12:51 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/28 01:01:44 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ t_read	*check_fd(t_read *read, int fd)
 	t_read	*curr;
 	t_read	*ret;
 
+	if (!read)
+	{
+		read = init_read(fd);
+		if (!read)
+			return (NULL);
+		// return (read);
+	}
 	curr = read;
 	while (curr->next)
 	{
@@ -65,11 +72,15 @@ t_read	*check_fd(t_read *read, int fd)
 			return (curr);
 		curr = curr->next;
 	}
-	ret = init_read(fd);
-	if (!ret)
-		return (NULL);
-	curr->next = ret;
-	return (ret);
+	if (curr->fd != fd)
+	{
+		ret = init_read(fd);
+		if (!ret)
+			return (NULL);
+		curr->next = ret;
+		return (ret);
+	}
+	return (read);
 }
 
 void	clear_read(t_read *read, int fd)
@@ -78,7 +89,6 @@ void	clear_read(t_read *read, int fd)
 	t_read	*after;
 	t_read	*curr;
 
-	// printf("read->str = %s\n", read->str);
 	curr = read;
 	while (curr->next)
 	{

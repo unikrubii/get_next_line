@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/25 18:15:52 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/28 01:08:21 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ char	*read_file(int fd, char *str)
 	if (fbyte <= 0)
 	{
 		if (str[0] != '\0')
+		{
 			return (str);
+		}
 		free(str);
 		return (NULL);
 	}
@@ -68,7 +70,6 @@ char	*shift_str(char *str)
 	if (bsn_pos(str) == -1)
 	{
 		free(str);
-		str = NULL;
 		return (NULL);
 	}
 	pos = bsn_pos(str);
@@ -77,12 +78,10 @@ char	*shift_str(char *str)
 	if (!new)
 	{
 		free(str);
-		str = NULL;
 		return (NULL);
 	}
 	ft_strlcpy(new, &str[pos + 1], new_len);
 	free(str);
-	str = NULL;
 	return (new);
 }
 
@@ -91,6 +90,7 @@ char	*get_ans(char *str)
 	char	*ans;
 	int		pos;
 
+	pos = bsn_pos(str);
 	if (pos < 0)
 	{
 		ans = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1));
@@ -103,7 +103,6 @@ char	*get_ans(char *str)
 		return (ans);
 	}
 
-	pos = bsn_pos(str);
 	ans = (char *)malloc(sizeof(char) * (pos + 2));
 	if (!ans)
 	{
@@ -117,22 +116,18 @@ char	*get_ans(char *str)
 char	*get_next_line(int fd)
 {
 	static t_read 	*read;
-	t_read			*curr;
-	int				bsn;
 	char			*ret;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!read)
-	{
-		read = init_read(fd);
-		if (!read)
-			return (NULL);
-	}
 	read = check_fd(read, fd);
-	printf("before read file = %s\n", read->str);
+	if (!read)
+		return (NULL);
+	// printf("read file = %s\n", read->str);
 	read->str = read_file(fd, read->str);
-	printf("read file = %s\n", read->str);
+	// curr = check_fd(read, fd);
+	// curr = read;
+	// printf("read file = %s\n", curr->str);
 	if (!read->str)
 		return (NULL);
 	ret = get_ans(read->str);
@@ -140,8 +135,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	// curr = read;
 	read->str = shift_str(read->str);
-	printf("read->str = %s\n", read->str);
 	// clear_read(curr, fd);
+	// printf("return value = %s\n", ret);
 	return (ret);
 }
 
@@ -169,32 +164,32 @@ char	*get_next_line(int fd)
 // 	}
 // }val
 
-int	main(void)
-{
-	int	fd;
-	char *ans;
-	fd = open("43_with_nl", O_RDONLY);
-	// // get_next_line(fd);
-	// // get_next_line(fd);
-	// // get_next_line(fd);
-	// // get_next_line(fd);
-	// // get_next_line(fd);
-	ans = get_next_line(fd);
-	printf("%s", ans);
-	free(ans);
-	ans = get_next_line(fd);
-	printf("%s", ans);
-	free(ans);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
-	// ans = get_next_line(fd);
-	// printf("%s", ans);
-	// free(ans);
-}
+// int	main(void)
+// {
+// 	int	fd;
+// 	char *ans;
+// 	fd = open("43_with_nl", O_RDONLY);
+// 	// // get_next_line(fd);
+// 	// // get_next_line(fd);
+// 	// // get_next_line(fd);
+// 	// // get_next_line(fd);
+// 	// // get_next_line(fd);
+// 	ans = get_next_line(fd);
+// 	printf("%s", ans);
+// 	free(ans);
+// 	ans = get_next_line(fd);
+// 	printf("%s", ans);
+// 	free(ans);
+// 	// ans = get_next_line(fd);
+// 	// printf("%s", ans);
+// 	// free(ans);
+// 	// ans = get_next_line(fd);
+// 	// printf("%s", ans);
+// 	// free(ans);
+// 	// ans = get_next_line(fd);
+// 	// printf("%s", ans);
+// 	// free(ans);
+// 	// ans = get_next_line(fd);
+// 	// printf("%s", ans);
+// 	// free(ans);
+// }

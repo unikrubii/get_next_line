@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/28 01:01:44 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/28 18:02:06 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ t_read	*check_fd(t_read *read, int fd)
 		read = init_read(fd);
 		if (!read)
 			return (NULL);
-		// return (read);
 	}
 	curr = read;
 	while (curr->next)
@@ -89,8 +88,9 @@ void	clear_read(t_read *read, int fd)
 	t_read	*after;
 	t_read	*curr;
 
+	// printf("read->str = %s\tread->fd = %d\tread->next = %p\n", read->str, read->fd, read->next);
 	curr = read;
-	while (curr->next)
+	while (curr->next != NULL)
 	{
 		if (curr->next->fd == fd)
 		{
@@ -104,53 +104,13 @@ void	clear_read(t_read *read, int fd)
 				return ;
 			}
 			before->next = after;
-			curr = curr->next;
 		}
+		curr = curr->next;
 	}
+	// if (curr->next == NULL)
+	// {
+	// 	curr->fd = 0;
+	// 	free(curr);
+	// 	return ;
+	// }
 }
-// void	ft_lstadd_back(t_read **lst, t_read *new)
-// {
-// 	t_read	*temp;
-
-// 	if (lst && new)
-// 	{
-// 		if (*lst == NULL)
-// 			*lst = new;
-// 		else
-// 		{
-// 			temp = ft_lstlast(*lst);
-// 			temp->next = new;
-// 		}
-// 	}
-// }
-
-// t_read	*ft_lstlast(t_read *lst)
-// {
-// 	if (lst)
-// 	{
-// 		while (lst->next)
-// 			lst = lst->next;
-// 	}
-// 	return (lst);
-// }
-
-// t_read	*ft_lstnew(void *content)
-// {
-// 	t_read	*new;
-
-// 	new = (t_read *)malloc(sizeof(*new));
-// 	if (!new)
-// 		return (NULL);
-// 	new->content = content;
-// 	new->next = NULL;
-// 	return (new);
-// }
-
-// void	ft_lstdelone(t_read *lst, void (*del)(void *))
-// {
-// 	if (lst && del)
-// 	{
-// 		del(lst->content);
-// 		free(lst);
-// 	}
-// }

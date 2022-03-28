@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/28 01:08:21 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/28 17:33:06 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,10 @@ char	*read_file(int fd, char *str)
 	int		fbyte;
 
 	fbyte = read(fd, buf, BUFFER_SIZE);
-	if (fbyte <= 0)
+	if (fbyte <= 0 || str == NULL)
 	{
-		if (str[0] != '\0')
-		{
+		if (str == NULL || str[0] != '\0')
 			return (str);
-		}
 		free(str);
 		return (NULL);
 	}
@@ -102,7 +100,6 @@ char	*get_ans(char *str)
 		ft_strlcpy(ans, str, ft_strlen(str) + 1);
 		return (ans);
 	}
-
 	ans = (char *)malloc(sizeof(char) * (pos + 2));
 	if (!ans)
 	{
@@ -123,17 +120,27 @@ char	*get_next_line(int fd)
 	read = check_fd(read, fd);
 	if (!read)
 		return (NULL);
-	// printf("read file = %s\n", read->str);
+	// printf("read file in gnl = %s\n", read->str);
 	read->str = read_file(fd, read->str);
 	// curr = check_fd(read, fd);
 	// curr = read;
-	// printf("read file = %s\n", curr->str);
-	if (!read->str)
+	// printf("read file = %s\n", read->str);
+	if (read->str == NULL)
+	{
+		// printf("test\n");
+		clear_read(read, fd);
 		return (NULL);
+	}
 	ret = get_ans(read->str);
 	if (!ret)
+	{
+		clear_read(read, fd);
 		return (NULL);
+	}
 	// curr = read;
+	// printf("read->str before shift = %s\n", read->str);
+	// if (read->str == NULL)
+	// 	clear_read(read, fd);
 	read->str = shift_str(read->str);
 	// clear_read(curr, fd);
 	// printf("return value = %s\n", ret);
@@ -174,6 +181,9 @@ char	*get_next_line(int fd)
 // 	// // get_next_line(fd);
 // 	// // get_next_line(fd);
 // 	// // get_next_line(fd);
+// 	ans = get_next_line(fd);
+// 	printf("%s", ans);
+// 	free(ans);
 // 	ans = get_next_line(fd);
 // 	printf("%s", ans);
 // 	free(ans);

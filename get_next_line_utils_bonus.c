@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/29 20:05:21 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/29 20:13:00 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	clear_read(t_read *read, int fd)
 	before = curr;
 	while (curr != NULL)
 	{
-		if (curr->next->fd == fd)
+		if (curr->fd == fd)
 		{
 			curr->fd = 0;
 			if (curr->str)

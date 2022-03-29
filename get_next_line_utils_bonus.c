@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/28 18:21:19 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/29 13:57:26 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,10 @@ void	clear_read(t_read *read, int fd)
 	curr = read;
 	while (curr->next != NULL)
 	{
+		before = curr;
+		after = curr->next->next;
 		if (curr->next->fd == fd)
 		{
-			before = curr;
-			after = curr->next->next;
 			if (curr->next->str == NULL)
 			{
 				curr->next->fd = 0;
@@ -107,10 +107,10 @@ void	clear_read(t_read *read, int fd)
 		}
 		curr = curr->next;
 	}
-	if (curr->next == NULL)
-	{
-		curr->fd = 0;
-		free(curr);
-	}
+	// if (curr->next == NULL)
+	// {
+	// 	curr->fd = 0;
+	// 	free(curr);
+	// }
 	return ;
 }

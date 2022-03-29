@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/29 20:08:44 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/29 20:11:24 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ char	*get_next_line(int fd)
 	// curr = check_fd(read, fd);
 	// curr = read;
 	// printf("read file = %s\n", read->str);
-	if (read->str[0] == '\0')
+	if (read->str[0] == '\0' || !read->str)
 	{
 		// printf("test\n");
 		clear_read(read, fd);

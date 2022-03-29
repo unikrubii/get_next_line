@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/29 13:57:26 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/29 19:40:17 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,14 @@ void	clear_read(t_read *read, int fd)
 
 	// printf("read->str = %s\tread->fd = %d\tread->next = %p\n", read->str, read->fd, read->next);
 	curr = read;
-	while (curr->next != NULL)
+	before = read;
+	while (curr != NULL)
 	{
-		before = curr;
-		after = curr->next->next;
 		if (curr->next->fd == fd)
 		{
-			if (curr->next->str == NULL)
-			{
-				curr->next->fd = 0;
-				curr->next->next = NULL;
-				free(curr->next);
-				return ;
-			}
-			before->next = after;
+			curr->next->fd = 0;
+			free(curr->next->str);
+			free(curr);
 		}
 		curr = curr->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/29 20:18:58 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/31 20:48:09 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,31 +84,34 @@ t_read	*check_fd(t_read *read, int fd)
 
 void	clear_read(t_read *read, int fd)
 {
-	t_read	*before;
 	t_read	*after;
 	t_read	*curr;
 
 	// printf("read->str = %s\tread->fd = %d\tread->next = %p\n", read->str, read->fd, read->next);
 	curr = read;
-	while (curr != NULL)
+	if (curr->fd == fd)
 	{
-		if (curr->fd == fd)
+		if (curr->str != NULL)
+			free(curr->str);
+		read = after;
+		curr->fd = 0;
+		curr->next = NULL;
+		free(curr);
+		return ;
+	}
+	after = curr->next;
+	while (after != NULL)
+	{
+		if (after->fd == fd)
 		{
-			before = curr;
-			after = curr->next;
-			curr->fd = 0;
-			if (curr->str)
-				free(curr->str);
-			if (curr->next)
-				before->next = curr->next;
-			free(curr);
+			curr->next = after->next;
+			if (after->str != NULL)
+				free(after->str);
+			after->fd = 0;
+			after->next = NULL;
 		}
 		curr = curr->next;
+		after = curr->next;
 	}
-	// if (curr->next == NULL)
-	// {
-	// 	curr->fd = 0;
-	// 	free(curr);
-	// }
 	return ;
 }

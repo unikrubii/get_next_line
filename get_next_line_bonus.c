@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/31 22:42:51 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/31 23:15:00 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ char	*get_next_line(int fd)
 	
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
 		return (NULL);
+	// printf("readf start = %p\n", readf);
 	readf = check_fd(readf, fd);
 	if (!readf)
 		return (NULL);
@@ -125,12 +126,14 @@ char	*get_next_line(int fd)
 	if (!readf->str || *(readf->str) == '\0')
 	{
 		clear_read(readf, fd);
+		readf = NULL;
 		return (NULL);
 	}
 	ret = get_ans(readf->str);
 	if (!ret)
 	{
 		clear_read(readf, fd);
+		readf = NULL;
 		return (NULL);
 	}
 	readf->str = shift_str(readf->str);

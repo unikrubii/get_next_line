@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/31 20:48:09 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/31 22:42:32 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,31 @@ size_t	ft_strlen(char *s)
 {
 	size_t	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i])
 		i++;
 	return (i);
 }
 
-size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
+void	ft_strlcpy(char *dst, char *src, size_t dstsize)
 {
 	size_t	i;
 
-	if (!dstsize)
-		return (ft_strlen(src));
+	// printf("dst = %s\tsrc = %s\tdstsize = %ld\n", dst, src, dstsize);
+	// if (src == NULL)
+	// 	printf("test dst NULL\n");
+	if (!dstsize || !src)
+		return ;
 	i = 0;
-	while (src[i] && i < (dstsize - 1))
+	while (i < (dstsize - 1) && src[i])
 	{
 		dst[i] = src[i];
 		i++;
 	}
 	dst[i] = '\0';
-	return (ft_strlen(src));
+	return ;
 }
 
 t_read	*init_read(int fd)
@@ -47,6 +52,7 @@ t_read	*init_read(int fd)
 	if (!new)
 		return (NULL);
 	new->fd = fd;
+	// printf("test\n");
 	new->str = (char *)malloc(sizeof(char));
 	new->str[0] = '\0';
 	new->next = NULL;
@@ -60,12 +66,13 @@ t_read	*check_fd(t_read *read, int fd)
 
 	if (!read)
 	{
+		// printf("test init\n");
 		read = init_read(fd);
 		if (!read)
 			return (NULL);
 	}
 	curr = read;
-	while (curr->next)
+	while (curr->next != NULL)
 	{
 		if (curr->fd == fd)
 			return (curr);
@@ -73,6 +80,7 @@ t_read	*check_fd(t_read *read, int fd)
 	}
 	if (curr->fd != fd)
 	{
+		// printf("read->fd = %d\n", read->fd);
 		ret = init_read(fd);
 		if (!ret)
 			return (NULL);
@@ -89,6 +97,7 @@ void	clear_read(t_read *read, int fd)
 
 	// printf("read->str = %s\tread->fd = %d\tread->next = %p\n", read->str, read->fd, read->next);
 	curr = read;
+	after = curr->next;
 	if (curr->fd == fd)
 	{
 		if (curr->str != NULL)
@@ -97,9 +106,9 @@ void	clear_read(t_read *read, int fd)
 		curr->fd = 0;
 		curr->next = NULL;
 		free(curr);
+		curr = NULL;
 		return ;
 	}
-	after = curr->next;
 	while (after != NULL)
 	{
 		if (after->fd == fd)
@@ -109,6 +118,7 @@ void	clear_read(t_read *read, int fd)
 				free(after->str);
 			after->fd = 0;
 			after->next = NULL;
+			free(after);
 		}
 		curr = curr->next;
 		after = curr->next;

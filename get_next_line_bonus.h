@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:10 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/25 14:47:25 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/03/31 21:07:03 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_read
 }				t_read;
 
 size_t	ft_strlen(char *s);
-size_t	ft_strlcpy(char *dst, char *src, size_t dstsize);
+void	ft_strlcpy(char *dst, char *src, size_t dstsize);
 char	*get_next_line(int fd);
 t_read	*init_read(int fd);
 t_read	*check_fd(t_read *read, int fd);

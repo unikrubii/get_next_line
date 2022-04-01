@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/04/01 17:43:04 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/02 01:15:42 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_read	*check_fd(t_read *read, int fd)
 			return (NULL);
 	}
 	curr = read;
-	printf("curr->fd = %d\tfd = %d\n", curr->fd, fd);
+	// printf("curr->fd = %d\tfd = %d\n", curr->fd, fd);
 	while (curr->next != NULL)
 	{
 		if (curr->fd == fd)
@@ -81,7 +81,7 @@ t_read	*check_fd(t_read *read, int fd)
 		if (!ret)
 			return (NULL);
 		curr->next = ret;
-		printf("curr->next = %p\n ret = %p\n", curr->next, ret);
+		// printf("curr->next = %p\n ret = %p\n", curr->next, ret);
 		return (ret);
 	}
 	return (read);

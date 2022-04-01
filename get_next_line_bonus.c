@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/31 23:15:00 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/01 17:46:29 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,59 +140,63 @@ char	*get_next_line(int fd)
 	return (ret);
 }
 
-// int	main(int argc, char **argv)
-// {
-// 	int	fd;
-// 	char *ans;
-// 	int	i;
+int	main(void)
+{
+	int	fd[4];
+	char *ans;
+	fd[0] = open("41_with_nl", O_RDWR);
+	// ans = get_next_line(1000);
+	// printf("%s", ans);
+	// free(ans);
+	ans = get_next_line(fd[0]);
+	printf("fd[0] %s", ans);
+	free(ans);
 
-// 	i = 1;
-// 	if (argc > 1)
-// 	{
-// 		while (i < argc)
-// 		{
-// 			fd = open(argv[i], O_RDONLY);
-// 			ans = get_next_line(fd);
-// 			while (ans)// && j < 4)
-// 			{
-// 				printf("answer = %s", ans);
-// 				ans = get_next_line(fd);
-// 			}
-// 			i++;
-// 			close(fd);
-// 		}
-// 	}
-// }val
+	fd[1] = open("42_with_nl", O_RDWR);
+	// ans = get_next_line(1001);
+	// printf("%s", ans);
+	// free(ans);
+	ans = get_next_line(fd[1]);
+	printf("fd[1] %s", ans);
+	free(ans);
 
-// int	main(void)
-// {
-// 	int	fd;
-// 	char *ans;
-// 	fd = open("empty", O_RDONLY);
-// 	// // get_next_line(fd);
-// 	// // get_next_line(fd);
-// 	// // get_next_line(fd);
-// 	// // get_next_line(fd);
-// 	// // get_next_line(fd);
-// 	ans = get_next_line(fd);
-// 	printf("%s", ans);
-// 	free(ans);
-// 	ans = get_next_line(fd);
-// 	printf("%s", ans);
-// 	free(ans);
-// 	// ans = get_next_line(fd);
-// 	// printf("%s", ans);
-// 	// free(ans);
-// 	// ans = get_next_line(fd);
-// 	// printf("%s", ans);
-// 	// free(ans);
-// 	// ans = get_next_line(fd);
-// 	// printf("%s", ans);
-// 	// free(ans);
-// 	// ans = get_next_line(fd);
-// 	// printf("%s", ans);
-// 	// free(ans);
-// 	// ans = get_next_line(fd);
-// 	// printf("%s", ans);
-// 	// free(ans);
-// }
+	// fd[2] = open("43_with_nl", O_RDWR);
+	// ans = get_next_line(1002);
+	// printf("%s", ans);
+	// free(ans);
+	// ans = get_next_line(fd[2]);
+	// printf("%s", ans);
+	// free(ans);
+
+	// ans = get_next_line(1003);
+	// printf("%s", ans);
+	// free(ans);
+	ans = get_next_line(fd[0]);
+	printf("fd[0] %s", ans);
+	free(ans);
+	
+	// ans = get_next_line(1004);
+	// printf("%s", ans);
+	// free(ans);
+	ans = get_next_line(fd[1]);
+	printf("fd[1] %s", ans);
+	free(ans);
+	
+	// ans = get_next_line(1005);
+	// printf("%s", ans);
+	// free(ans);
+	// ans = get_next_line(fd[2]);
+	// printf("%s", ans);
+	// free(ans);
+
+	
+	ans = get_next_line(fd[0]);
+	printf("fd[0] %s", ans);
+	free(ans);
+	ans = get_next_line(fd[1]);
+	printf("fd[1] %s", ans);
+	free(ans);
+	// ans = get_next_line(fd[2]);
+	// printf("%s", ans);
+	// free(ans);
+}

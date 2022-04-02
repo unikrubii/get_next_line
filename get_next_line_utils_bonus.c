@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/04/02 16:11:25 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/02 17:07:11 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ t_read	*clear_read(t_read *read, int fd)
 			if (after->str != NULL)
 				free(after->str);
 			free(after);
+			return (read);
 		}
 		curr = curr->next;
 		after = curr->next;

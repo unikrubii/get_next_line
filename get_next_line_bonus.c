@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/04/02 17:16:59 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/02 17:19:29 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
 		return (NULL);
 	curr = check_fd(readf, fd);
+	if (!curr)
+		return (NULL);
 	if (!readf)
 		readf = curr;
 	curr->str = read_file(fd, curr->str);
@@ -135,7 +137,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	curr->str = shift_str(curr->str);
-	if (!curr->str)
-		readf = clear_read(readf, fd);
+	// if (!curr->str)
+	// 	readf = clear_read(readf, fd);
 	return (ret);
 }

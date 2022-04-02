@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/04/02 01:14:34 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/02 15:03:44 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ char	*get_ans(char *str)
 	char	*ans;
 	int		pos;
 
+	// printf("str in get_ans = %s\n", str);
 	pos = bsn_pos(str);
 	if (pos < 0)
 	{
@@ -114,32 +115,42 @@ char	*get_ans(char *str)
 char	*get_next_line(int fd)
 {
 	static t_read 	*readf = NULL;
+	t_read			*curr;
 	char			*ret;
 	
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
 		return (NULL);
 	// printf("readf start = %p\n", readf);
-	readf = check_fd(readf, fd);
+	curr = check_fd(readf, fd);
 	if (!readf)
+		readf = curr;
+	// printf("gnl read = %p\tcurr = %p\n", readf, curr);
+	if (!curr)
 		return (NULL);
-	readf->str = read_file(fd, readf->str);
-	if (!readf->str || *(readf->str) == '\0')
+	curr->str = read_file(fd, curr->str);
+	// printf("curr->str = %s\n", curr->str);
+	if (!curr->str || *(curr->str) == '\0')
 	{
-		clear_read(readf, fd);
-		readf = NULL;
+		// printf("curr is null\treadf = %p\n", readf);
+		readf = clear_read(readf, fd);
 		return (NULL);
 	}
-	ret = get_ans(readf->str);
+	ret = get_ans(curr->str);
+	// printf("ret = %s\n", ret);
 	if (!ret)
 	{
-		clear_read(readf, fd);
-		readf = NULL;
+		// printf("ret is null\n");
+		readf = clear_read(readf, fd);
 		return (NULL);
 	}
-	readf->str = shift_str(readf->str);
+	curr->str = shift_str(curr->str);
+	// printf("shift str = %s\n", curr->str);
+	if (!curr->str)
+		readf = clear_read(readf, fd);
 	return (ret);
 }
 
+// #include <sys/wait.h>
 // int	main(void)
 // {
 // 	int	fd[4];
@@ -149,7 +160,7 @@ char	*get_next_line(int fd)
 // 	// printf("%s", ans);
 // 	// free(ans);
 // 	ans = get_next_line(fd[0]);
-// 	printf("fd[0] %s", ans);
+// 	printf("||%s||", ans);
 // 	free(ans);
 
 // 	fd[1] = open("42_with_nl", O_RDWR);
@@ -157,7 +168,7 @@ char	*get_next_line(int fd)
 // 	// printf("%s", ans);
 // 	// free(ans);
 // 	ans = get_next_line(fd[1]);
-// 	printf("fd[1] %s", ans);
+// 	printf("//%s//", ans);
 // 	free(ans);
 
 // 	// fd[2] = open("43_with_nl", O_RDWR);
@@ -172,14 +183,14 @@ char	*get_next_line(int fd)
 // 	// printf("%s", ans);
 // 	// free(ans);
 // 	ans = get_next_line(fd[0]);
-// 	printf("fd[0] %s", ans);
+// 	printf("||%s||", ans);
 // 	free(ans);
 	
 // 	// ans = get_next_line(1004);
 // 	// printf("%s", ans);
 // 	// free(ans);
 // 	ans = get_next_line(fd[1]);
-// 	printf("fd[1] %s", ans);
+// 	printf("//%s//", ans);
 // 	free(ans);
 	
 // 	// ans = get_next_line(1005);
@@ -191,10 +202,10 @@ char	*get_next_line(int fd)
 
 	
 // 	ans = get_next_line(fd[0]);
-// 	printf("fd[0] %s", ans);
+// 	printf("||%s||", ans);
 // 	free(ans);
 // 	ans = get_next_line(fd[1]);
-// 	printf("fd[1] %s", ans);
+// 	printf("//%s//", ans);
 // 	free(ans);
 // 	// ans = get_next_line(fd[2]);
 // 	// printf("%s", ans);

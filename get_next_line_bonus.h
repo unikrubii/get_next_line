@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:10 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/03/31 21:07:03 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/02 14:09:17 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void	ft_strlcpy(char *dst, char *src, size_t dstsize);
 char	*get_next_line(int fd);
 t_read	*init_read(int fd);
 t_read	*check_fd(t_read *read, int fd);
-void	clear_read(t_read *read, int fd);
+t_read	*clear_read(t_read *read, int fd);
 
 #endif

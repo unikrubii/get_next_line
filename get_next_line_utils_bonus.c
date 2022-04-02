@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/04/02 01:15:42 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/02 15:07:30 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ t_read	*init_read(int fd)
 {
 	t_read	*new;
 
+	// printf("malloc struct\n");
 	new = (t_read *)malloc(sizeof(t_read));
 	if (!new)
 		return (NULL);
 	new->fd = fd;
-	// printf("test\n");
+	// printf("malloc str\n");
 	new->str = (char *)malloc(sizeof(char));
 	new->str[0] = '\0';
 	new->next = NULL;
@@ -61,6 +62,7 @@ t_read	*check_fd(t_read *read, int fd)
 	t_read	*curr;
 	t_read	*ret;
 
+	// printf("read = %p\n", read);
 	if (!read)
 	{
 		read = init_read(fd);
@@ -68,6 +70,7 @@ t_read	*check_fd(t_read *read, int fd)
 			return (NULL);
 	}
 	curr = read;
+	// printf("read = %p\tcurr = %p\n", read, curr);
 	// printf("curr->fd = %d\tfd = %d\n", curr->fd, fd);
 	while (curr->next != NULL)
 	{
@@ -81,13 +84,13 @@ t_read	*check_fd(t_read *read, int fd)
 		if (!ret)
 			return (NULL);
 		curr->next = ret;
-		// printf("curr->next = %p\n ret = %p\n", curr->next, ret);
+		// printf("ret->str = %s\n", ret->str);
 		return (ret);
 	}
 	return (read);
 }
 
-void	clear_read(t_read *read, int fd)
+t_read	*clear_read(t_read *read, int fd)
 {
 	t_read	*after;
 	t_read	*curr;
@@ -103,21 +106,22 @@ void	clear_read(t_read *read, int fd)
 		curr->fd = 0;
 		curr->next = NULL;
 		free(curr);
-		return ;
+		return (after);
 	}
-	// while (after != NULL)
-	// {
-	// 	if (after->fd == fd)
-	// 	{
-	// 		curr->next = after->next;
-	// 		if (after->str != NULL)
-	// 			free(after->str);
-	// 		after->fd = 0;
-	// 		after->next = NULL;
-	// 		free(after);
-	// 	}
-	// 	curr = curr->next;
-	// 	after = curr->next;
-	// }
-	return ;
+	while (after != NULL)
+	{
+		if (after->fd == fd)
+		{
+			curr->next = after->next;
+			// printf("fd = %d\tstr = %s\n",after->fd, after->str);
+			if (after->str != NULL)
+				free(after->str);
+			after->fd = 0;
+			after->next = NULL;
+			free(after);
+		}
+		curr = curr->next;
+		after = curr->next;
+	}
+	return (read);
 }

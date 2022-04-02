@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/04/02 15:40:07 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/02 16:11:25 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ t_read	*check_fd(t_read *read, int fd)
 	t_read	*curr;
 	t_read	*ret;
 
-	// printf("read = %p\n", read);
 	if (!read)
 	{
 		read = init_read(fd);
@@ -68,24 +67,18 @@ t_read	*check_fd(t_read *read, int fd)
 			return (NULL);
 	}
 	curr = read;
-	// printf("read = %p\tcurr = %p\n", read, curr);
-	// printf("curr->fd = %d\tfd = %d\n", curr->fd, fd);
 	while (curr->next != NULL)
 	{
-		// printf("fd is found\n");
 		if (curr->fd == fd)
 			return (curr);
 		curr = curr->next;
 	}
-	// printf("curr = %p\tcurr-fd = %d\tfd = %d\n", curr, curr->fd, fd);
 	if (curr->fd != fd)
 	{
-		// printf("hello");
 		ret = init_read(fd);
 		if (!ret)
 			return (NULL);
 		curr->next = ret;
-		// printf("ret->str = %s\n", ret->str);
 		return (ret);
 	}
 	return (curr);
@@ -96,16 +89,12 @@ t_read	*clear_read(t_read *read, int fd)
 	t_read	*after;
 	t_read	*curr;
 
-	// printf("read->str = %s\tread->fd = %d\tread->next = %p\n", read->str, read->fd, read->next);
 	curr = read;
 	after = curr->next;
 	if (curr->fd == fd)
 	{
 		if (curr->str != NULL)
 			free(curr->str);
-		read = after;
-		curr->fd = 0;
-		curr->next = NULL;
 		free(curr);
 		return (after);
 	}
@@ -114,11 +103,8 @@ t_read	*clear_read(t_read *read, int fd)
 		if (after->fd == fd)
 		{
 			curr->next = after->next;
-			// printf("fd = %d\tstr = %s\n",after->fd, after->str);
 			if (after->str != NULL)
 				free(after->str);
-			after->fd = 0;
-			after->next = NULL;
 			free(after);
 		}
 		curr = curr->next;

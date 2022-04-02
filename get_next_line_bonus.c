@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/04/02 15:44:02 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/02 16:08:07 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ char	*get_ans(char *str)
 	char	*ans;
 	int		pos;
 
-	// printf("str in get_ans = %s\n", str);
 	pos = bsn_pos(str);
 	if (pos < 0)
 	{
@@ -120,33 +119,22 @@ char	*get_next_line(int fd)
 	
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
 		return (NULL);
-	// printf("readf start = %p\n", readf);
 	curr = check_fd(readf, fd);
 	if (!readf)
 		readf = curr;
-	// printf("gnl read = %p\tcurr = %p\n", readf, curr);
-	if (!curr)
-		return (NULL);
 	curr->str = read_file(fd, curr->str);
-	// printf("curr->str = %s\n", curr->str);
 	if (!curr->str || *(curr->str) == '\0')
 	{
-		// printf("curr is null\treadf = %p\n", readf);
 		readf = clear_read(readf, fd);
 		return (NULL);
 	}
 	ret = get_ans(curr->str);
-	// printf("ret = %s\n", ret);
 	if (!ret)
 	{
-		// printf("ret is null\n");
 		readf = clear_read(readf, fd);
 		return (NULL);
 	}
 	curr->str = shift_str(curr->str);
-	// printf("shift str = %s\n", curr->str);
-	if (!curr->str)
-		readf = clear_read(readf, fd);
 	return (ret);
 }
 
@@ -156,58 +144,58 @@ char	*get_next_line(int fd)
 // 	int	fd[4];
 // 	char *ans;
 // 	fd[0] = open("41_with_nl", O_RDWR);
-// 	// ans = get_next_line(1000);
-// 	// printf("%s", ans);
-// 	// free(ans);
+// 	ans = get_next_line(1000);
+// 	printf("%s", ans);
+// 	free(ans);
 // 	ans = get_next_line(fd[0]);
-// 	printf("||%s||", ans);
+// 	printf("%s", ans);
 // 	free(ans);
 
 // 	fd[1] = open("42_with_nl", O_RDWR);
-// 	// ans = get_next_line(1001);
-// 	// printf("%s", ans);
-// 	// free(ans);
+// 	ans = get_next_line(1001);
+// 	printf("%s", ans);
+// 	free(ans);
 // 	ans = get_next_line(fd[1]);
-// 	printf("//%s//", ans);
+// 	printf("%s", ans);
 // 	free(ans);
 
-// 	// fd[2] = open("43_with_nl", O_RDWR);
-// 	// ans = get_next_line(1002);
-// 	// printf("%s", ans);
-// 	// free(ans);
-// 	// ans = get_next_line(fd[2]);
-// 	// printf("%s", ans);
-// 	// free(ans);
+// 	fd[2] = open("43_with_nl", O_RDWR);
+// 	ans = get_next_line(1002);
+// 	printf("%s", ans);
+// 	free(ans);
+// 	ans = get_next_line(fd[2]);
+// 	printf("%s", ans);
+// 	free(ans);
 
-// 	// ans = get_next_line(1003);
-// 	// printf("%s", ans);
-// 	// free(ans);
+// 	ans = get_next_line(1003);
+// 	printf("%s", ans);
+// 	free(ans);
 // 	ans = get_next_line(fd[0]);
-// 	printf("||%s||", ans);
+// 	printf("%s", ans);
 // 	free(ans);
 	
-// 	// ans = get_next_line(1004);
-// 	// printf("%s", ans);
-// 	// free(ans);
+// 	ans = get_next_line(1004);
+// 	printf("%s", ans);
+// 	free(ans);
 // 	ans = get_next_line(fd[1]);
-// 	printf("//%s//", ans);
+// 	printf("%s", ans);
 // 	free(ans);
 	
-// 	// ans = get_next_line(1005);
-// 	// printf("%s", ans);
-// 	// free(ans);
-// 	// ans = get_next_line(fd[2]);
-// 	// printf("%s", ans);
-// 	// free(ans);
+// 	ans = get_next_line(1005);
+// 	printf("%s", ans);
+// 	free(ans);
+// 	ans = get_next_line(fd[2]);
+// 	printf("%s", ans);
+// 	free(ans);
 
 	
 // 	ans = get_next_line(fd[0]);
-// 	printf("||%s||", ans);
+// 	printf("%s", ans);
 // 	free(ans);
 // 	ans = get_next_line(fd[1]);
-// 	printf("//%s//", ans);
+// 	printf("%s", ans);
 // 	free(ans);
-// 	// ans = get_next_line(fd[2]);
-// 	// printf("%s", ans);
-// 	// free(ans);
+// 	ans = get_next_line(fd[2]);
+// 	printf("%s", ans);
+// 	free(ans);
 // }

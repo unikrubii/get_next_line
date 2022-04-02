@@ -1,4 +1,4 @@
-<h1 align="center"> 42 Cursus: get_next_line </h1>
-<h4 align="center"> Reading a line from a fd is way too tedious </h4>
+<h1 align="center">42 Cursus: get_next_line
+  <font size =5>Reading a line from a fd is way too tedious</font></h1>
 
 

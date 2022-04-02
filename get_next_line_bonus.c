@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/04/02 16:08:07 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/02 16:16:34 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int	bsn_pos(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!s)
@@ -113,10 +113,10 @@ char	*get_ans(char *str)
 
 char	*get_next_line(int fd)
 {
-	static t_read 	*readf = NULL;
+	static t_read	*readf = NULL;
 	t_read			*curr;
 	char			*ret;
-	
+
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) < 0)
 		return (NULL);
 	curr = check_fd(readf, fd);
@@ -137,65 +137,3 @@ char	*get_next_line(int fd)
 	curr->str = shift_str(curr->str);
 	return (ret);
 }
-
-// #include <sys/wait.h>
-// int	main(void)
-// {
-// 	int	fd[4];
-// 	char *ans;
-// 	fd[0] = open("41_with_nl", O_RDWR);
-// 	ans = get_next_line(1000);
-// 	printf("%s", ans);
-// 	free(ans);
-// 	ans = get_next_line(fd[0]);
-// 	printf("%s", ans);
-// 	free(ans);
-
-// 	fd[1] = open("42_with_nl", O_RDWR);
-// 	ans = get_next_line(1001);
-// 	printf("%s", ans);
-// 	free(ans);
-// 	ans = get_next_line(fd[1]);
-// 	printf("%s", ans);
-// 	free(ans);
-
-// 	fd[2] = open("43_with_nl", O_RDWR);
-// 	ans = get_next_line(1002);
-// 	printf("%s", ans);
-// 	free(ans);
-// 	ans = get_next_line(fd[2]);
-// 	printf("%s", ans);
-// 	free(ans);
-
-// 	ans = get_next_line(1003);
-// 	printf("%s", ans);
-// 	free(ans);
-// 	ans = get_next_line(fd[0]);
-// 	printf("%s", ans);
-// 	free(ans);
-	
-// 	ans = get_next_line(1004);
-// 	printf("%s", ans);
-// 	free(ans);
-// 	ans = get_next_line(fd[1]);
-// 	printf("%s", ans);
-// 	free(ans);
-	
-// 	ans = get_next_line(1005);
-// 	printf("%s", ans);
-// 	free(ans);
-// 	ans = get_next_line(fd[2]);
-// 	printf("%s", ans);
-// 	free(ans);
-
-	
-// 	ans = get_next_line(fd[0]);
-// 	printf("%s", ans);
-// 	free(ans);
-// 	ans = get_next_line(fd[1]);
-// 	printf("%s", ans);
-// 	free(ans);
-// 	ans = get_next_line(fd[2]);
-// 	printf("%s", ans);
-// 	free(ans);
-// }

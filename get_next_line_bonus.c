@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/04/02 15:03:44 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/02 15:40:17 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ char	*get_next_line(int fd)
 	}
 	curr->str = shift_str(curr->str);
 	// printf("shift str = %s\n", curr->str);
-	if (!curr->str)
-		readf = clear_read(readf, fd);
+	// if (!curr->str)
+	// 	readf = clear_read(readf, fd);
 	return (ret);
 }
 

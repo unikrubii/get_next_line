@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/04/02 15:07:30 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/02 15:40:07 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,10 @@ t_read	*init_read(int fd)
 {
 	t_read	*new;
 
-	// printf("malloc struct\n");
 	new = (t_read *)malloc(sizeof(t_read));
 	if (!new)
 		return (NULL);
 	new->fd = fd;
-	// printf("malloc str\n");
 	new->str = (char *)malloc(sizeof(char));
 	new->str[0] = '\0';
 	new->next = NULL;
@@ -74,12 +72,15 @@ t_read	*check_fd(t_read *read, int fd)
 	// printf("curr->fd = %d\tfd = %d\n", curr->fd, fd);
 	while (curr->next != NULL)
 	{
+		// printf("fd is found\n");
 		if (curr->fd == fd)
 			return (curr);
 		curr = curr->next;
 	}
+	// printf("curr = %p\tcurr-fd = %d\tfd = %d\n", curr, curr->fd, fd);
 	if (curr->fd != fd)
 	{
+		// printf("hello");
 		ret = init_read(fd);
 		if (!ret)
 			return (NULL);
@@ -87,7 +88,7 @@ t_read	*check_fd(t_read *read, int fd)
 		// printf("ret->str = %s\n", ret->str);
 		return (ret);
 	}
-	return (read);
+	return (curr);
 }
 
 t_read	*clear_read(t_read *read, int fd)

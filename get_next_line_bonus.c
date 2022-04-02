@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:04:26 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/04/02 17:19:29 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/02 17:20:44 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,5 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	curr->str = shift_str(curr->str);
-	// if (!curr->str)
-	// 	readf = clear_read(readf, fd);
 	return (ret);
 }

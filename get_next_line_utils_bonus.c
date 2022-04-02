@@ -6,7 +6,7 @@
 /*   By: sthitiku <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 14:03:50 by sthitiku          #+#    #+#             */
-/*   Updated: 2022/04/02 17:07:11 by sthitiku         ###   ########.fr       */
+/*   Updated: 2022/04/02 17:22:59 by sthitiku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ t_read	*clear_read(t_read *read, int fd)
 	after = curr->next;
 	if (curr->fd == fd)
 	{
-		if (curr->str != NULL)
-			free(curr->str);
+		// if (curr->str != NULL)
+		free(curr->str);
 		free(curr);
 		return (after);
 	}

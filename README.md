@@ -45,3 +45,9 @@ There you are! ***BONUS PART***
 
 This is the example when you are able to make the bonus part out.
 ![image](https://user-images.githubusercontent.com/83582645/161394116-2a53fb53-000a-4a90-8e74-f49acd09acab.png)
+
+
+### Final Score : **125**
+#### Testers
+- [Tripouille/gnlTester](https://github.com/Tripouille/gnlTester "Tripouille Tester")
+- [Othello Tester](https://github.com/Othello42/Othello42-get_next_line-tester "Othello Tester")

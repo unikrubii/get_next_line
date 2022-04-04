@@ -39,9 +39,9 @@ There you are! ***BONUS PART***
 - It also can manage multiple file discriptors at the same time without losing the reading thread of each fd or returning a line from another fd.
 - The bonus part will only be assessed if the mandatory part is ***PERFECT***.
 - The files needed to turn in are as follow:
-  - get_next_line_bonus.c
-  - get_next_line_utils_bonus.c
-  - get_next_line_bonus.h
+  - `get_next_line_bonus.c`
+  - `get_next_line_utils_bonus.c`
+  - `get_next_line_bonus.h`
 
 This is the example when you are able to make the bonus part out.
 ![image](https://user-images.githubusercontent.com/83582645/161394116-2a53fb53-000a-4a90-8e74-f49acd09acab.png)

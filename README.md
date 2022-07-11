@@ -9,7 +9,7 @@
 > - Memory allocation and free memory.</br>
 > - Implementing `define` macro to use in function.</br>
 > - How to append characters into another strings.</br>
-> - Linked list (if you want to do completely dynamic (hard mode) in for bonus)
+> - Linked list – if you want to do completely dynamic (hard mode) for bonus
 
 ### 	:computer: To compile ###
 - Compile the code with: `-gcc -Wall -Wextra -Werror -D BUFFER_SIZE=42 <files>.c` (in case of a buffer size of 42 is used)
